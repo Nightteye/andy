@@ -18,12 +18,11 @@ const marquee = document.getElementById('marquee');
 const crackSound = new Audio('assets/audio/crack.mp3'); 
 const cheerSound = new Audio('assets/audio/cheer.mp3');
 const bgm = document.getElementById('bgm'); 
-bgm.volume = 0.3; // Soft background volume
+bgm.volume = 0.3; 
 
 // --- Interaction ---
 eggImg.addEventListener('click', function() {
     
-    // 1. Play BGM on first tap (Autoplay policy fix)
     if (!musicStarted) {
         bgm.play().catch(e => console.log("BGM autoplay prevented"));
         musicStarted = true;
@@ -31,7 +30,7 @@ eggImg.addEventListener('click', function() {
 
     if (isCracked) return; 
 
-    // Reset Animations for click effect
+    // Reset Animations
     eggImg.style.animation = 'none'; 
     eggImg.offsetHeight; 
     eggImg.style.animation = null; 
@@ -69,7 +68,7 @@ function triggerFinale() {
     // 1. Break Egg
     changeImage("assets/images/egg-shell.png"); 
     instructionText.style.opacity = '0';
-    shadow.style.opacity = '0'; // Hide shadow
+    shadow.style.opacity = '0'; 
     
     if (navigator.vibrate) navigator.vibrate([200, 100, 200]); 
     playSound(cheerSound);
@@ -77,28 +76,43 @@ function triggerFinale() {
     // 2. Confetti
     fireConfetti();
 
-    // 3. Text Fly Out (Timed Sequence)
+    // 3. Text Fly Out Sequence
+    // "ALL" (0.6s)
     setTimeout(() => {
         const w1 = document.getElementById('word1');
         w1.classList.add('visible', 'pos-left');
     }, 600); 
 
+    // "THE" (1.2s)
     setTimeout(() => {
         const w2 = document.getElementById('word2');
         w2.classList.add('visible', 'pos-center');
-    }, 1400); 
+    }, 1200); 
 
+    // "BEST" (1.8s)
     setTimeout(() => {
         const w3 = document.getElementById('word3');
         w3.classList.add('visible', 'pos-right');
-        
-        // SHOW MARQUEE HERE
-        marquee.style.opacity = '1'; 
-        
-        fireConfetti(); 
-    }, 2200); 
+        fireConfetti();
+    }, 1800); 
 
-    // 4. Chick Reveal
+    // "FOR" (2.4s) - NEW
+    setTimeout(() => {
+        const w4 = document.getElementById('word4');
+        w4.classList.add('visible', 'pos-gap-left');
+    }, 2400);
+
+    // "BOARDS" (3.0s) - NEW
+    setTimeout(() => {
+        const w5 = document.getElementById('word5');
+        w5.classList.add('visible', 'pos-gap-right');
+        
+        // Show Marquee after text is done
+        marquee.style.opacity = '1'; 
+        fireConfetti();
+    }, 3000);
+
+    // 4. Chick Reveal (3.8s) - Delayed slightly for new words
     setTimeout(() => {
         chickContainer.style.display = 'block';
         chickContainer.classList.add('fly-in');
@@ -109,7 +123,7 @@ function triggerFinale() {
             footerMsg.classList.add('show');
         }, 1200); 
         
-    }, 3000); 
+    }, 3800); 
 }
 
 function changeImage(path) { eggImg.src = path; }
@@ -123,9 +137,10 @@ function playSound(audio) {
 
 function fireConfetti() {
     confetti({
-        particleCount: 150,
+        particleCount: 100, // Reduced count for mobile
         spread: 70,
         origin: { y: 0.6 },
-        colors: ['#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF']
+        colors: ['#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF'],
+        disableForReducedMotion: true // Respects battery saver mode
     });
 }

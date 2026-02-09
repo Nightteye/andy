@@ -1,7 +1,7 @@
-/* --- 1. Base Setup (Mobile First) --- */
+/* --- 1. Base Setup (Mobile Optimized) --- */
 :root {
-    --primary-color: #FF6B6B; /* Coral */
-    --accent-color: #6a5acd;  /* Slate Blue */
+    --primary-color: #FF6B6B; 
+    --accent-color: #6a5acd;  
     --bg-gradient-start: #fffbf0;
     --bg-gradient-end: #e6e6fa;
 }
@@ -10,14 +10,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent; /* No blue box on tap */
+    -webkit-tap-highlight-color: transparent; 
 }
 
 body {
     background: radial-gradient(circle at 50% 30%, var(--bg-gradient-start) 0%, #fff0f5 50%, var(--bg-gradient-end) 100%);
     font-family: 'Quicksand', sans-serif;
     height: 100vh;
-    height: 100dvh; /* Mobile browser fix */
+    height: 100dvh; 
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -52,7 +52,7 @@ h2 {
     z-index: 10;
 }
 
-/* --- 3. The Egg & Pedestal --- */
+/* --- 3. The Egg --- */
 .egg-wrapper {
     position: relative;
     width: 260px;
@@ -73,6 +73,7 @@ h2 {
     filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
     animation: breathe 3s infinite ease-in-out;
     transform-origin: bottom center;
+    will-change: transform; /* Optimized for Phone */
 }
 
 .pedestal-shadow {
@@ -92,11 +93,11 @@ h2 {
     animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
 }
 
-/* --- 4. Flying Text (Mobile Optimized) --- */
+/* --- 4. Flying Text (The 5 Words) --- */
 .fly-word {
     position: absolute;
     font-family: 'Fredoka One', cursive;
-    font-size: 3.2rem;
+    font-size: 2.8rem; /* Sized to fit 5 words nicely */
     color: var(--primary-color);
     opacity: 0;
     top: 50%; left: 50%;
@@ -105,6 +106,7 @@ h2 {
     z-index: 100;
     text-shadow: 3px 3px 0px #fff, 0 0 15px rgba(255, 107, 107, 0.4);
     white-space: nowrap;
+    will-change: transform, opacity; /* Optimized */
 }
 
 .fly-word.visible { opacity: 1; }
@@ -117,7 +119,7 @@ h2 {
 .s1 { top: -10px; left: -15px; animation-delay: 0s; }
 .s2 { bottom: -5px; right: -15px; animation-delay: 0.5s; }
 
-/* Positions */
+/* ROW 1: ALL THE BEST */
 .pos-left { 
     top: 14% !important; 
     transform: translate(-125%, 0) rotate(-8deg) scale(0.9) !important; 
@@ -131,10 +133,19 @@ h2 {
     transform: translate(25%, 0) rotate(8deg) scale(0.9) !important; 
 }
 
-/* --- 5. FIXED: Seamless Marquee Positioning --- */
+/* ROW 2: FOR BOARDS (The Gap Fillers) */
+.pos-gap-left {
+    top: 22% !important;
+    transform: translate(-140%, 0) rotate(-5deg) scale(0.85) !important;
+}
+.pos-gap-right {
+    top: 22% !important;
+    transform: translate(40%, 0) rotate(5deg) scale(0.85) !important;
+}
+
+/* --- 5. Marquee --- */
 .marquee-wrapper {
     position: absolute;
-    /* Pushed down to 32% to avoid hitting "All The Best" */
     top: 32%; 
     left: 0;
     width: 100%;
@@ -155,11 +166,12 @@ h2 {
     display: flex;
     width: max-content;
     animation: scroll 25s linear infinite; 
+    will-change: transform;
 }
 
 .marquee-content {
     font-size: 1.2rem;
-    font-weight: 800; /* Made slightly bolder */
+    font-weight: 800;
     color: var(--primary-color);
     white-space: nowrap;
     padding-right: 2rem;
@@ -176,6 +188,7 @@ h2 {
     transform: translateX(-50%);
     width: 300px;
     z-index: 50;
+    will-change: transform, top;
 }
 
 .fly-in {
@@ -215,7 +228,7 @@ h2 {
 /* --- 7. Decorations --- */
 .footer-msg {
     position: absolute;
-    bottom: 50px;
+    bottom: 70px; 
     width: 100%;
     opacity: 0;
     transition: opacity 1s;
@@ -226,18 +239,20 @@ h2 {
 }
 .footer-msg.show { opacity: 1; }
 
-/* NEW: Sorry Footer */
 .sorry-msg {
     position: absolute;
-    bottom: 10px;
+    bottom: 20px;
     left: 15px;
-    font-size: 0.7rem;
-    color: #888;
-    opacity: 0.7;
+    font-size: 0.85rem; 
+    color: #555; 
+    opacity: 0.9;
     z-index: 70;
     font-family: 'Quicksand', sans-serif;
-    pointer-events: none;
     font-style: italic;
+    background: rgba(255, 255, 255, 0.6); 
+    padding: 5px 10px;
+    border-radius: 10px;
+    pointer-events: none;
 }
 
 .cloud-decoration {
@@ -256,7 +271,9 @@ h2 {
     animation: floatBackground 18s infinite linear;
     font-size: 2rem;
     filter: blur(1px);
+    will-change: transform;
 }
+
 .shape-1 { top: 10%; left: 8%; animation-duration: 15s; }
 .shape-2 { top: 75%; left: 12%; animation-duration: 20s; font-size: 1.5rem;}
 .shape-3 { top: 40%; left: 88%; animation-duration: 25s; }
@@ -316,12 +333,17 @@ h2 {
 
 /* Mobile Tweaks */
 @media (max-width: 400px) {
-    .fly-word { font-size: 2.5rem; }
+    .fly-word { font-size: 2.2rem; } /* Compact size for mobile */
     .pos-left { transform: translate(-120%, 0) rotate(-8deg) scale(0.85) !important; }
     .pos-right { transform: translate(20%, 0) rotate(8deg) scale(0.85) !important; }
     
-    /* Adjust marquee for smaller screens */
-    .marquee-wrapper { top: 35%; }
+    /* Gap text positioning on mobile */
+    .pos-gap-left { transform: translate(-130%, 0) rotate(-5deg) scale(0.8) !important; }
+    .pos-gap-right { transform: translate(30%, 0) rotate(5deg) scale(0.8) !important; }
     
+    .marquee-wrapper { top: 35%; }
     .chick-hovering { top: 40% !important; }
+    
+    .footer-msg { bottom: 80px; font-size: 1.1rem; }
+    .sorry-msg { bottom: 15px; left: 10px; font-size: 0.8rem; }
 }
