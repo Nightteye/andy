@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply touch-manipulation;
+  }
+  
+  body {
+    @apply bg-cream overflow-hidden;
+    background: radial-gradient(circle at 50% 30%, #FCFDF7 0%, #FAF8FF 50%, #F3EFFF 100%);
+  }
+}
+
+@layer components {
+  /* Glassmorphism utility class */
+  .glass {
+    @apply bg-white/40 backdrop-blur-kawaii border border-white/60;
+  }
+  
+  .glass-strong {
+    @apply bg-white/60 backdrop-blur-xl border border-white/80;
+  }
+  
+  /* Marshmallow card effect */
+  .marshmallow {
+    @apply glass rounded-4xl shadow-marshmallow transition-all duration-300;
+  }
+  
+  .marshmallow:hover {
+    @apply shadow-marshmallow-hover;
+  }
+  
+  /* Button styles */
+  .btn-kawaii {
+    @apply px-6 py-3 rounded-3xl font-quicksand font-semibold text-white
+           transition-all duration-300 active:scale-95 hover:scale-105
+           shadow-marshmallow hover:shadow-marshmallow-hover;
+  }
+  
+  .btn-primary {
+    @apply btn-kawaii bg-gradient-to-r from-lavender-200 to-peach-200
+           hover:from-lavender-300 hover:to-peach-300;
+  }
+  
+  .btn-success {
+    @apply btn-kawaii bg-gradient-to-r from-mint-200 to-mint-300
+           hover:from-mint-300 hover:to-mint-400;
+  }
+  
+  /* Text with kawaii shadow */
+  .text-kawaii {
+    text-shadow: 2px 2px 4px rgba(224, 215, 255, 0.3);
+  }
+  
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-lavender-50 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-lavender-200 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-lavender-300;
+  }
+}
+
+@layer utilities {
+  /* Spring physics animation */
+  .spring {
+    animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  /* Smooth transitions */
+  .transition-spring {
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  /* Mobile optimizations */
+  @media (max-width: 640px) {
+    .text-responsive {
+      font-size: clamp(1rem, 4vw, 1.5rem);
+    }
+    
+    .heading-responsive {
+      font-size: clamp(1.5rem, 6vw, 2.5rem);
+    }
+  }
+}
+
+/* Custom animations for sparkles and decorations */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes float-decoration {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-30px) rotate(10deg);
+  }
+}
+
+.animate-twinkle {
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+.animate-float-decoration {
+  animation: float-decoration 8s ease-in-out infinite;
+}
+
+/* Prevent pull-to-refresh on mobile */
+body {
+  overscroll-behavior: none;
+}
+
+/* Ensure full viewport height on mobile browsers */
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+}

@@ -1,0 +1,32 @@
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: scroll-marquee 25s linear infinite;
+  will-change: transform;
+}
+
+.marquee-content {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #FFC2D1;
+  white-space: nowrap;
+  padding-right: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: 'Fredoka', cursive;
+}
+
+@media (min-width: 640px) {
+  .marquee-content {
+    font-size: 1.25rem;
+  }
+}
+
+@keyframes scroll-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
